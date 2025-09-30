@@ -32,6 +32,12 @@ import Carousel from "./components/Carousel";
 import Form from "./components/Form";
 import MultiSelect from "./components/MultiSelect";
 import DateTimePicker from "./components/DateTimePicker";
+import LineChart from "./components/LineChart";
+import BarChart from "./components/BarChart";
+import PieChart from "./components/PieChart";
+import AreaChart from "./components/AreaChart";
+import ComparisonChart from "./components/Comparisonchart";
+import ComposedComparisonChart from "./components/ComposedComparisonChart";
 
 export {
     Pagination,
@@ -68,5 +74,11 @@ export {
     Carousel,
     Form,
     MultiSelect,
-    DateTimePicker
+    DateTimePicker,
+    LineChart,
+    BarChart,
+    PieChart,
+    AreaChart,
+    ComparisonChart,
+    ComposedComparisonChart
 };

@@ -34,7 +34,13 @@ import {
   Carousel,
   Form,
   MultiSelect,
-  DateTimePicker
+  DateTimePicker,
+  LineChart,
+  BarChart,
+  PieChart,
+  AreaChart,
+  ComparisonChart,
+  ComposedComparisonChart
 } from "./index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
@@ -43,6 +49,38 @@ const copyToClipboard = (text) => {
   navigator.clipboard.writeText(text);
   alert("Code copied to clipboard!");
 };
+
+const sampleData = [
+  { name: "Jan", value: 400 },
+  { name: "Feb", value: 300 },
+  { name: "Mar", value: 200 },
+  { name: "Apr", value: 278 },
+  { name: "May", value: 189 },
+];
+
+const chartData = [
+  { name: "Jan", ProductA: 400, ProductB: 300 },
+  { name: "Feb", ProductA: 300, ProductB: 200 },
+  { name: "Mar", ProductA: 200, ProductB: 278 },
+  { name: "Apr", ProductA: 278, ProductB: 189 },
+];
+
+const series = ["ProductA", "ProductB"];
+
+const composedData = [
+  { month: "Jan", Sales: 400, Revenue: 240, Profit: 100 },
+  { month: "Feb", Sales: 300, Revenue: 139, Profit: 80 },
+  { month: "Mar", Sales: 500, Revenue: 400, Profit: 200 },
+  { month: "Apr", Sales: 278, Revenue: 390, Profit: 150 },
+  { month: "May", Sales: 450, Revenue: 320, Profit: 180 },
+  { month: "Jun", Sales: 600, Revenue: 500, Profit: 250 },
+  { month: "Jul", Sales: 700, Revenue: 600, Profit: 300 },
+  { month: "Aug", Sales: 650, Revenue: 580, Profit: 280 },
+  { month: "Sep", Sales: 500, Revenue: 420, Profit: 210 },
+  { month: "Oct", Sales: 480, Revenue: 390, Profit: 190 },
+  { month: "Nov", Sales: 550, Revenue: 460, Profit: 220 },
+  { month: "Dec", Sales: 620, Revenue: 510, Profit: 260 },
+];
 
 const componentMap = () => ({
   PrimaryButton: {
@@ -712,6 +750,82 @@ import DateTimePicker from "./components/DateTimePicker";
   onChange={(value) => console.log("Selected DateTime:", value)}
 />
     `,
+  },
+  LineChart: {
+    description: "A line chart showing trends over time",
+    preview: <LineChart data={sampleData} />,
+    code: `<LineChart data={sampleData} />`,
+  },
+  BarChart: {
+    description: "A bar chart showing values for each category",
+    preview: <BarChart data={sampleData} />,
+    code: `<BarChart data={sampleData} />`,
+  },
+  PieChart: {
+    description: "A pie chart showing part-to-whole distribution",
+    preview: <PieChart data={sampleData} />,
+    code: `<PieChart data={sampleData} />`,
+  },
+  AreaChart: {
+    description: "An area chart showing trends over time",
+    preview: <AreaChart data={sampleData} />,
+    code: `<AreaChart data={sampleData} />`,
+  },
+  ComparisonChart: {
+    description: "Compare multiple series dynamically",
+    preview: <ComparisonChart data={chartData} series={series} type="bar" stacked={false} />,
+    code: `
+const chartData = [
+  { name: "Jan", ProductA: 400, ProductB: 300 },
+  { name: "Feb", ProductA: 300, ProductB: 200 },
+  { name: "Mar", ProductA: 200, ProductB: 278 },
+  { name: "Apr", ProductA: 278, ProductB: 189 },
+];
+const series = ["ProductA", "ProductB"];
+<ComparisonChart data={chartData} series={series} type="bar" stacked={false} />`,
+  },
+  ComposedBarLineChart: {
+    description: "Bar + Line chart comparing Sales and Revenue.",
+    preview: <ComposedComparisonChart data={composedData} type="bar-line" />,
+    code: `
+<ComposedChart data={data}>
+  <CartesianGrid strokeDasharray="3 3" />
+  <XAxis dataKey="month" />
+  <YAxis />
+  <Tooltip />
+  <Legend />
+  <Bar dataKey="Sales" fill="#4f46e5" />
+  <Line dataKey="Revenue" stroke="#10b981" strokeWidth={2} />
+</ComposedChart>`,
+  },
+  ComposedLineScatterChart: {
+    description: "Line + Scatter chart showing Sales vs Revenue.",
+    preview: <ComposedComparisonChart data={composedData} type="line-scatter" />,
+    code: `
+<ComposedChart data={data}>
+  <CartesianGrid strokeDasharray="3 3" />
+  <XAxis dataKey="month" />
+  <YAxis />
+  <Tooltip />
+  <Legend />
+  <Line type="monotone" dataKey="Sales" stroke="#f59e0b" strokeWidth={2} />
+  <Scatter dataKey="Revenue" fill="#ef4444" />
+</ComposedChart>`,
+  },
+  ComposedBarLineAreaChart: {
+    description: "Bar + Line + Area chart showing Sales, Revenue, and Profit.",
+    preview: <ComposedComparisonChart data={composedData} type="bar-line-area" />,
+    code: `
+<ComposedChart data={data}>
+  <CartesianGrid strokeDasharray="3 3" />
+  <XAxis dataKey="month" />
+  <YAxis />
+  <Tooltip />
+  <Legend />
+  <Bar dataKey="Sales" barSize={20} fill="#3b82f6" />
+  <Line type="monotone" dataKey="Revenue" stroke="#10b981" strokeWidth={2} />
+  <Area type="monotone" dataKey="Profit" fill="#fbbf24" stroke="#f59e0b" />
+</ComposedChart>`,
   },
 });
 
