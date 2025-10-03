@@ -648,51 +648,36 @@ const [selected, setSelected] = useState("Item 1");
   Form: {
     description: "Dynamic form builder component to generate forms from config.",
     preview: (() => {
-      const userFormFields = [
-        {
-          name: "name",
-          label: "Full Name",
-          type: "text",
-          required: true,
-          placeholder: "Enter your full name",
-        },
-        {
-          name: "email",
-          label: "Email",
-          type: "email",
-          required: true,
-          placeholder: "Enter your email address",
-        },
-        {
-          name: "age",
-          label: "Age",
-          type: "number",
-          placeholder: "Enter your age",
-        },
-        {
-          name: "bio",
-          label: "Bio",
-          type: "textarea",
-          placeholder: "Write something about yourself...",
-        },
+      const formFields = [
+        { name: "name", label: "Full Name", type: "text", required: true },
+        { name: "email", label: "Email", type: "email", required: true },
+        { name: "password", label: "Password", type: "password", required: true, minLength: 6 },
+        { name: "gender", label: "Gender", type: "radio", options: ["Male", "Female", "Other"] },
+        { name: "country", label: "Country", type: "select", options: ["India", "USA", "UK"] },
+        { name: "newsletter", label: "Subscribe to Newsletter", type: "checkbox" },
+        { name: "skills", label: "Skills", type: "checkbox", options: ["React", "Vue", "Angular"], required: true },
+        { name: "bio", label: "Bio", type: "textarea", placeholder: "Tell us about yourself" },
       ];
-
       return (
         <Form
-          fields={userFormFields}
+          fields={formFields}
           onSubmit={(data) => console.log("Form Submitted: " + JSON.stringify(data, null, 2))}
         />
       );
     })(),
     code: `
-const userFormFields = [
-  { name: "name", label: "Full Name", type: "text", required: true, placeholder: "Enter your full name" },
-  { name: "email", label: "Email", type: "email", required: true, placeholder: "Enter your email address" },
-  { name: "age", label: "Age", type: "number", placeholder: "Enter your age" },
-  { name: "bio", label: "Bio", type: "textarea", placeholder: "Write something about yourself..." },
+const formFields = [
+{ name: "name", label: "Full Name", type: "text", required: true },
+{ name: "email", label: "Email", type: "email", required: true },
+{ name: "password", label: "Password", type: "password", required: true, minLength: 6 },
+{ name: "gender", label: "Gender", type: "radio", options: ["Male", "Female", "Other"] },
+{ name: "country", label: "Country", type: "select", options: ["India", "USA", "UK"] },
+{ name: "newsletter", label: "Subscribe to Newsletter", type: "checkbox" },
+{ name: "skills", label: "Skills", type: "checkbox", options: ["React", "Vue", "Angular"] },
+{ name: "bio", label: "Bio", type: "textarea", placeholder: "Tell us about yourself" },
 ];
 
-<Form fields={userFormFields} onSubmit={(data) => console.log(data)} />`,
+<Form fields={formFields} onSubmit={(data) => console.log(data)} />`,
   },
   MultiSelect: {
     description: "Select multiple options from a dropdown.",
